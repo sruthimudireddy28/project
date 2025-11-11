@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - The Gilded Spoon</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts: Playfair Display (Headings) & Lato (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS (Copied from index.html for consistency) -->
+    <style>
+        :root {
+            --bs-primary: #C0A062; /* Custom Gold */
+            --bs-primary-rgb: 192, 160, 98;
+            --bs-dark-rgb: 44, 47, 51; /* Rich dark color */
+            --bs-body-font-family: 'Lato', sans-serif;
+            --bs-body-color: #f8f9fa;
+            --bs-body-bg: #2C2F33;
+        }
+
+        /* --- Page Load Animation --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        body {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .text-gold {
+            color: var(--bs-primary) !important;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background-color: rgba(44, 47, 51, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.75rem;
+            color: var(--bs-primary);
+        }
+        .navbar-brand:hover { color: #ffffff; }
+        .nav-link {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 0.5rem !important;
+            margin: 0 0.5rem;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--bs-primary) !important; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--bs-primary);
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 70%; }
+
+        /* --- Page Header --- */
+        .page-header {
+            padding: 8rem 0;
+            background: linear-gradient(rgba(44, 47, 51, 0.8), rgba(44, 47, 51, 0.8)), url('https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .page-header h1 {
+            font-size: 4rem;
+            font-weight: 900;
+        }
+
+        /* --- Utility & Sections --- */
+        .section-padding {
+            padding: 6rem 0;
+        }
+        .section-title {
+            font-weight: 900;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--bs-primary);
+        }
+
+        /* --- Menu Tabs --- */
+        .menu-tabs .nav-link {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #adb5bd;
+            border: 0;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            padding: 0.5rem 1rem;
+            margin: 0 1rem;
+        }
+
+        .menu-tabs .nav-link.active,
+        .menu-tabs .nav-link:hover {
+            color: var(--bs-primary);
+            background-color: transparent;
+            border-bottom-color: var(--bs-primary);
+        }
+
+        /* --- Menu List --- */
+        .menu-item {
+            border-bottom: 1px dashed #4a4e52;
+            padding: 1.5rem 0.5rem; /* Added horizontal padding */
+            transition: background-color 0.3s ease; /* Added transition */
+        }
+        .menu-item:last-child {
+            border-bottom: 0;
+        }
+        .menu-item-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .menu-item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease; /* Added transition */
+        }
+        .menu-item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--bs-primary);
+            font-weight: 700;
+            padding-left: 1rem;
+        }
+        .menu-item-description {
+            font-size: 1rem;
+            color: #adb5bd;
+        }
+
+        /* --- New Hover Effect for Menu Item --- */
+        .menu-item:hover {
+            background-color: rgba(var(--bs-primary-rgb), 0.05); /* Very subtle gold tint */
+            border-radius: 0.5rem;
+        }
+        .menu-item:hover .menu-item-name {
+            color: var(--bs-primary); /* Make name gold on hover */
+        }
+
+        /* --- Chef Section --- */
+        .chef-section {
+            background-color: #212325;
+        }
+
+        .chef-img {
+            border-radius: 1rem;
+            box-shadow: 0 1rem 3rem rgba(0,0,0,0.3);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: #212325;
+            color: #adb5bd;
+            padding: 4rem 0;
+        }
+        .footer h5 { color: #ffffff; font-family: 'Playfair Display', serif; margin-bottom: 1.5rem; }
+        .footer .social-icons a { color: #adb5bd; font-size: 1.5rem; margin-right: 1.5rem; transition: color 0.3s ease; }
+        .footer .social-icons a:hover { color: var(--bs-primary); }
+
+        /* --- Custom Button --- */
+        .btn-primary {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            color: #2C2F33;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50rem;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #d4b070;
+            border-color: #d4b070;
+            color: #2C2F33;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === Navbar === -->
+    <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-gem me-2"></i>The Gilded Spoon
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Reservations</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- === Page Header === -->
+    <header class="page-header text-center text-white">
+        <div class="container">
+            <h1 class="text-gold">Our Menu</h1>
+            <p class="lead fs-3">A Symphony of Flavors</p>
+        </div>
+    </header>
+
+    <!-- === Menu Section === -->
+    <section class="section-padding">
+        <div class="container">
+            <!-- Menu Tabs -->
+            <ul class="nav nav-tabs justify-content-center border-0 menu-tabs" id="menuTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="appetizers-tab" data-bs-toggle="tab" data-bs-target="#appetizers" type="button" role="tab" aria-controls="appetizers" aria-selected="true">Appetizers</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="mains-tab" data-bs-toggle="tab" data-bs-target="#mains" type="button" role="tab" aria-controls="mains" aria-selected="false">Main Courses</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="desserts-tab" data-bs-toggle="tab" data-bs-target="#desserts" type="button" role="tab" aria-controls="desserts" aria-selected="false">Desserts</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="drinks-tab" data-bs-toggle="tab" data-bs-target="#drinks" type="button" role="tab" aria-controls="drinks" aria-selected="false">Drinks</button>
+                </li>
+            </ul>
+
+            <!-- Menu Content -->
+            <div class="tab-content mt-5" id="menuTabsContent">
+                <!-- Appetizers -->
+                <div class="tab-pane fade show active" id="appetizers" role="tabpanel" aria-labelledby="appetizers-tab">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">Seared Scallops</h5>
+                                    <h5 class="menu-item-price">$24</h5>
+                                </div>
+                                <p class="menu-item-description">With saffron risotto, asparagus tips, and a citrus buerre blanc.</p>
+                            </div>
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">Burrata Caprese</h5>
+                                    <h5 class="menu-item-price">$18</h5>
+                                </div>
+                                <p class="menu-item-description">Creamy burrata, heirloom tomatoes, fresh basil, and a balsamic glaze.</p>
+                            </div>
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">Foie Gras Torchon</h5>
+                                    <h5 class="menu-item-price">$28</h5>
+                                </div>
+                                <p class="menu-item-description">Served with fig jam, toasted brioche, and a sprinkle of sea salt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Courses -->
+                <div class="tab-pane fade" id="mains" role="tabpanel" aria-labelledby="mains-tab">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">Seared Filet Mignon</h5>
+                                    <h5 class="menu-item-price">$52</h5>
+                                </div>
+                                <p class="menu-item-description">8oz prime cut, potato gratin, grilled asparagus, and a red wine reduction.</p>
+                            </div>
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">Truffle Pappardelle</h5>
+                                    <h5 class="menu-item-price">$36</h5>
+                                </div>
+                                <p class="menu-item-description">Handmade pasta with a rich black truffle cream sauce and aged Parmesan.</p>
+                            </div>
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">Pan-Seared Halibut</h5>
+                                    <h5 class="menu-item-price">$46</h5>
+                                </div>
+                                <p class="menu-item-description">With lemon-caper sauce, roasted root vegetables, and wilted spinach.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desserts -->
+                <div class="tab-pane fade" id="desserts" role="tabpanel" aria-labelledby="desserts-tab">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">Chocolate Lava Cake</h5>
+                                    <h5 class="menu-item-price">$16</h5>
+                                </div>
+                                <p class="menu-item-description">Decadent molten chocolate cake, raspberry coulis, and vanilla bean ice cream.</p>
+                            </div>
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">Crème Brûlée Trio</h5>
+                                    <h5 class="menu-item-price">$15</h5>
+                                </div>
+                                <p class="menu-item-description">A tasting of classic vanilla, espresso, and lavender-infused crème brûlée.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drinks -->
+                <div class="tab-pane fade" id="drinks" role="tabpanel" aria-labelledby="drinks-tab">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">The Gilded Old Fashioned</h5>
+                                    <h5 class="menu-item-price">$18</h5>
+                                </div>
+                                <p class="menu-item-description">Premium bourbon, gold-flaked simple syrup, and aromatic bitters.</p>
+                            </div>
+                            <!-- Item -->
+                            <div class="menu-item">
+                                <div class="menu-item-title">
+                                    <h5 class="menu-item-name">Sommelier's Choice</h5>
+                                    <h5 class="menu-item-price">$MP</h5>
+                                </div>
+                                <p class="menu-item-description">Ask about our daily wine-by-the-glass features from our extensive cellar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === Meet the Chef === -->
+    <section class="section-padding chef-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <img src="https://images.pexels.com/photos/887827/pexels-photo-887827.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                         alt="Head Chef" 
+                         class="img-fluid chef-img"
+                         onerror="this.src='https://placehold.co/600x700/2C2F33/C0A062?text=Chef'">
+                </div>
+                <div class="col-lg-6 offset-lg-1 mt-5 mt-lg-0">
+                    <h2 class="section-title text-gold mb-4">Meet Our Chef</h2>
+                    <h3 class="display-6 mb-4">Chef Antoine Dubois</h3>
+                    <p class="lead">With over 20 years of experience in Michelin-starred kitchens across Paris and New York, Chef Dubois brings a passion for classic French technique and modern innovation to The Gilded Spoon.</p>
+                    <p>His philosophy is simple: let the quality of the ingredients speak for itself. He personally curates our seasonal menu, ensuring every dish is a memorable experience of flavor, texture, and art.</p>
+                    <p class="lead fst-italic mt-4">"Food is not just sustenance. It is an experience, a memory, a form of art. My goal is to create that art for every guest."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === Footer === -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <!-- About -->
+                <div class="col-lg-4 col-md-6">
+                    <h5><i class="bi bi-gem me-2"></i>The Gilded Spoon</h5>
+                    <p>Delivering an unmatched fine dining experience since 2010. We are dedicated to artful cuisine and exceptional service.</p>
+                </div>
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-6">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-decoration-none text-secondary">Home</a></li>
+                        <li><a href="menu.html" class="text-decoration-none text-secondary">Menu</a></li>
+                        <li><a href="gallery.html" class="text-decoration-none text-secondary">Gallery</a></li>
+                        <li><a href="events.html" class="text-decoration-none text-secondary">Events</a></li>
+                        <li><a href="contact.html" class="text-decoration-none text-secondary">Reservations</a></li>
+                    </ul>
+                </div>
+                <!-- Contact -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2"></i>123 Luxury Ave, Foodie City, FS 54321</li>
+                        <li class="mb-2"><i class="bi bi-telephone-fill me-2"></i>(555) 123-4567</li>
+                        <li class="mb-2"><i class="bi bi-envelope-fill me-2"></i>reserve@gildedspoon.com</li>
+                    </ul>
+                </div>
+                <!-- Social -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col text-center">
+                    <p>&copy; 2024 The Gilded Spoon. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Bootstrap JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
