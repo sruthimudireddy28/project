@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gilded Spoon - Fine Dining</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts: Playfair Display (Headings) & Lato (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --bs-primary: #C0A062; /* Custom Gold */
+            --bs-primary-rgb: 192, 160, 98;
+            --bs-dark-rgb: 44, 47, 51; /* Rich dark color */
+            --bs-body-font-family: 'Lato', sans-serif;
+            --bs-body-color: #f8f9fa;
+            --bs-body-bg: #2C2F33;
+        }
+
+        /* --- Page Load Animation --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        body {
+            /* We apply animation to the body or a main container */
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .text-gold {
+            color: var(--bs-primary) !important;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background-color: rgba(44, 47, 51, 0.9); /* Dark, slightly transparent */
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.75rem;
+            color: var(--bs-primary);
+        }
+
+        .navbar-brand:hover {
+            color: #ffffff;
+        }
+
+        .nav-link {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 0.5rem !important;
+            margin: 0 0.5rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--bs-primary) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--bs-primary);
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 70%;
+        }
+
+        /* --- Hero Carousel --- */
+        .hero-carousel .carousel-item {
+            height: 90vh;
+            min-height: 500px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-carousel .carousel-caption {
+            top: 50%;
+            transform: translateY(-50%);
+            bottom: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+        
+        .hero-carousel .carousel-caption h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        @media (max-width: 768px) {
+            .hero-carousel .carousel-item {
+                height: 70vh;
+            }
+            .hero-carousel .carousel-caption h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* --- Utility & Sections --- */
+        .section-padding {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-weight: 900;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--bs-primary);
+        }
+
+        /* --- Feature Icons --- */
+        .feature-icon-box {
+            background-color: #3a3e42;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-icon-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 1rem 3rem rgba(0,0,0,0.3), 0 0 20px rgba(var(--bs-primary-rgb), 0.3); /* Added gold glow */
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Menu Card --- */
+        .menu-card {
+            background-color: #3a3e42;
+            border: 1px solid #4a4e52;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2), 0 0 15px rgba(var(--bs-primary-rgb), 0.2); /* Added gold glow */
+        }
+        
+        .menu-card img {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        /* --- Testimonials --- */
+        .testimonial-carousel {
+            background-color: #3a3e42;
+            border-radius: 1rem;
+            padding: 3rem;
+        }
+
+        .testimonial-carousel blockquote {
+            font-size: 1.25rem;
+            font-style: italic;
+        }
+        
+        .testimonial-carousel .carousel-indicators [data-bs-target] {
+            background-color: var(--bs-primary);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: #212325;
+            color: #adb5bd;
+            padding: 4rem 0;
+        }
+
+        .footer h5 {
+            color: #ffffff;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer .social-icons a {
+            color: #adb5bd;
+            font-size: 1.5rem;
+            margin-right: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer .social-icons a:hover {
+            color: var(--bs-primary);
+        }
+
+        /* --- Custom Button --- */
+        .btn-primary {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            color: #2C2F33;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50rem; /* pill shape */
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #d4b070;
+            border-color: #d4b070;
+            color: #2C2F33;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#mainNavbar">
+
+    <!-- === Navbar === -->
+    <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-gem me-2"></i>The Gilded Spoon
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Reservations</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- === Hero Carousel === -->
+    <header id="hero" class="hero-carousel carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#hero" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#hero" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#hero" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active" style="background-image: url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1 class="display-3">Experience Culinary Excellence</h1>
+                    <p class="lead fs-4">Artfully crafted dishes from the finest local ingredients.</p>
+                    <a href="contact.html" class="btn btn-primary btn-lg mt-3">Book a Table</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item" style="background-image: url('https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1 class="display-3">An Unforgettable Ambiance</h1>
+                    <p class="lead fs-4">Perfect for any occasion, from romantic dinners to special celebrations.</p>
+                    <a href="menu.html" class="btn btn-primary btn-lg mt-3">View Our Menu</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-item" style="background-image: url('https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1 class="display-3">Exquisite Wines & Cocktails</h1>
+                    <p class="lead fs-4">A curated selection to complement your dining experience.</p>
+                    <a href="menu.html#drinks" class="btn btn-primary btn-lg mt-3">Explore Pairings</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hero" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hero" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </header>
+
+    <!-- === Features Section === -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h2 class="section-title text-gold">Why Dine With Us?</h2>
+                </div>
+            </div>
+            <div class="row g-4 mt-4">
+                <!-- Feature 1 -->
+                <div class="col-md-4">
+                    <div class="feature-icon-box text-center">
+                        <div class="feature-icon text-gold">
+                            <i class="bi bi-flower1"></i>
+                        </div>
+                        <h3>Farm-to-Table</h3>
+                        <p class="lead">We partner with local farms to bring you the freshest, seasonal ingredients in every dish.</p>
+                    </div>
+                </div>
+                <!-- Feature 2 -->
+                <div class="col-md-4">
+                    <div class="feature-icon-box text-center">
+                        <div class="feature-icon text-gold">
+                            <i class="bi bi-person-check-fill"></i>
+                        </div>
+                        <h3>Master Chefs</h3>
+                        <p class="lead">Our culinary team, led by a world-renowned chef, creates innovative and refined flavors.</p>
+                    </div>
+                </div>
+                <!-- Feature 3 -->
+                <div class="col-md-4">
+                    <div class="feature-icon-box text-center">
+                        <div class="feature-icon text-gold">
+                            <i class="bi bi-lamp-fill"></i>
+                        </div>
+                        <h3>Elegant Ambiance</h3>
+                        <p class="lead">Dine in a sophisticated and intimate setting, designed for comfort and class.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === Menu Highlights === -->
+    <section class="section-padding" style="background-color: #212325;">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h2 class="section-title text-gold">From Our Menu</h2>
+                </div>
+            </div>
+            <div class="row g-4 mt-4">
+                <!-- Menu Item 1 -->
+                <div class="col-md-4">
+                    <div class="card menu-card h-100">
+                        <img src="https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Pasta Dish" onerror="this.src='https://placehold.co/600x400/2C2F33/C0A062?text=Pasta'">
+                        <div class="card-body d-flex flex-column">
+                            <h4 class="card-title text-gold">Truffle Pappardelle</h4>
+                            <p class="card-text text-light">Handmade pasta with a rich black truffle cream sauce and aged Parmesan.</p>
+                            <a href="menu.html#mains" class="btn btn-primary mt-auto align-self-start">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Menu Item 2 -->
+                <div class="col-md-4">
+                    <div class="card menu-card h-100">
+                        <img src="https://images.pexels.com/photos/361184/asparagus-steak-veal-steak-veal-361184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Steak Dish" onerror="this.src='https://placehold.co/600x400/2C2F33/C0A062?text=Steak'">
+                        <div class="card-body d-flex flex-column">
+                            <h4 class="card-title text-gold">Seared Filet Mignon</h4>
+                            <p class="card-text text-light">8oz prime cut, potato gratin, grilled asparagus, and a red wine reduction.</p>
+                            <a href="menu.html#mains" class="btn btn-primary mt-auto align-self-start">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Menu Item 3 -->
+                <div class="col-md-4">
+                    <div class="card menu-card h-100">
+                        <img src="https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Dessert Dish" onerror="this.src='https://placehold.co/600x400/2C2F33/C0A062?text=Dessert'">
+                        <div class="card-body d-flex flex-column">
+                            <h4 class="card-title text-gold">Chocolate Lava Cake</h4>
+                            <p class="card-text text-light">Decadent molten chocolate cake served with raspberry coulis and vanilla bean ice cream.</p>
+                            <a href="menu.html#desserts" class="btn btn-primary mt-auto align-self-start">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === Testimonials === -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <h2 class="section-title text-gold">What Our Guests Say</h2>
+                    <div id="testimonialCarousel" class="carousel slide testimonial-carousel mt-5" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <!-- Testimonial 1 -->
+                            <div class="carousel-item active">
+                                <blockquote class="blockquote">
+                                    <p>"An absolutely phenomenal dining experience. Every dish was a work of art. We will be back!"</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer mt-3 fs-5 text-light">
+                                    Jessica M.
+                                </figcaption>
+                            </div>
+                            <!-- Testimonial 2 -->
+                            <div class="carousel-item">
+                                <blockquote class="blockquote">
+                                    <p>"The ambiance is perfect for a special date night. The staff was incredibly attentive and the food... simply divine."</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer mt-3 fs-5 text-light">
+                                    David R.
+                                </figcaption>
+                            </div>
+                            <!-- Testimonial 3 -->
+                            <div class="carousel-item">
+                                <blockquote class="blockquote">
+                                    <p>"I celebrated my anniversary here and it exceeded all expectations. The tasting menu is a must-try."</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer mt-3 fs-5 text-light">
+                                    Sarah L.
+                                </figcaption>
+                            </div>
+                        </div>
+                        <div class="carousel-indicators" style="bottom: -30px;">
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === Footer === -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <!-- About -->
+                <div class="col-lg-4 col-md-6">
+                    <h5><i class="bi bi-gem me-2"></i>The Gilded Spoon</h5>
+                    <p>Delivering an unmatched fine dining experience since 2010. We are dedicated to artful cuisine and exceptional service.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-6">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-decoration-none text-secondary">Home</a></li>
+                        <li><a href="menu.html" class="text-decoration-none text-secondary">Menu</a></li>
+                        <li><a href="gallery.html" class="text-decoration-none text-secondary">Gallery</a></li>
+                        <li><a href="events.html" class="text-decoration-none text-secondary">Events</a></li>
+                        <li><a href="contact.html" class="text-decoration-none text-secondary">Reservations</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2"></i>kurnool,pulla reddy college-518002</li>
+                        <li class="mb-2"><i class="bi bi-telephone-fill me-2"></i>+91 9666074955</li>
+                        <li class="mb-2"><i class="bi bi-envelope-fill me-2"></i>Sruthi@gildedspoon.com</li>
+                    </ul>
+                </div>
+
+                <!-- Social -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col text-center">
+                    <p>&copy; 2024 The Gilded Spoon. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
